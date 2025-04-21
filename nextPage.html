@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Love Story</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand&display=swap" rel="stylesheet" />
+  <style>
+    /* Your existing styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(to bottom, #ffe2e6, #fff6f8);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card-layout {
+      background: #fff0f3;
+      padding: 2rem;
+      border-radius: 2rem;
+      box-shadow: 0 12px 30px rgba(255, 182, 193, 0.3);
+      border: 5px dashed #ff8a80;
+      width: 90%;
+      max-width: 700px;
+    }
+
+    .top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .top-image {
+      height: 300px;
+      width: 300px;
+      border: 4px solid #FF6F61;
+      border-radius: 1rem;
+      background: white;
+      object-fit: cover;
+    }
+
+    .right-side {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-left: 1.5rem;
+      max-width: 300px;
+    }
+
+    .open-button { /* Renamed to be more specific */
+      font-family: 'VT323', monospace;
+      padding: 1rem 8.3rem;
+      font-size: 1rem;
+      background-color: #ff8a80;
+      color: white;
+      border: none;
+      border-radius: 1rem;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    .open-button:hover {
+      background-color: #ff6e6e;
+    }
+
+    .middle-text {
+      font-size: 1.4rem;
+      font-family: 'VT323', monospace;
+      color: #FF6F61;
+      text-align: left;
+      line-height: 1.4;
+    }
+
+    .bottom-row {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .memory-button {
+      height: 120px;
+      width: 120px;
+      border: 3px solid #FF6F61;
+      border-radius: 1rem;
+      background: white;
+      object-fit: cover;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .memory-button:hover {
+      transform: scale(1.1);
+    }
+
+    .memory-button-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .memory-text {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: #FF6F61;
+      font-family: 'VT323', monospace;
+    }
+
+    #memoryPopup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 182, 193, 0.4);
+      backdrop-filter: blur(4px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 200;
+    }
+
+    .memory-popup-content { /* Renamed to be specific */
+      background: #fff;
+      padding: 2rem;
+      border-radius: 2rem;
+      text-align: center;
+      max-width: 90%;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .memory-popup-content h2 { /* Renamed to be specific */
+      color: #FF6F61;
+      font-family: 'VT323', monospace;
+      margin-bottom: 1rem;
+    }
+
+    .memory-popup-img { /* Renamed to be specific */
+      width: 100%;
+      max-width: 900px;
+      border-radius: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .close-btn {
+      background: #ff8a80;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 1rem;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s;
+    }
+
+    .close-btn:hover {
+      background: #ff6e6e;
+    }
+
+    /* Style for the new "Open♡" popup */
+    #openPopup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 182, 193, 0.4);
+      backdrop-filter: blur(4px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 201; /* Higher than memory popup */
+    }
+
+    .open-popup-content {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 2rem;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .open-popup-content h2 {
+      color: #FF6F61;
+      font-family: 'VT323', monospace;
+      margin-bottom: 1rem;
+    }
+
+    .open-popup-content p {
+      font-size: 1.1rem;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .open-close-btn {
+      background: #ff8a80;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 1rem;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s;
+      margin-top: 1rem;
+    }
+
+    .open-close-btn:hover {
+      background: #ff6e6e;
+    }
+  </style>
+</head>
+<body>
+  <div class="card-layout">
+    <div class="top-row">
+      <img src="image.png" alt="Main Image" class="top-image" />
+      <div class="right-side">
+        <button class="open-button" onclick="showOpenPopup()">Open♡</button>
+        <div class="middle-text" id="countdown">Together for:</div>
+      </div>
+    </div>
+
+    <div class="bottom-row">
+      <div class="memory-button-wrapper">
+        <img src="box.png" alt="Memory 1" class="memory-button" onclick="showMemoryPopup(0)" />
+        <p class="memory-text">Special night</p>
+      </div>
+
+      <div class="memory-button-wrapper">
+        <img src="box.png" alt="Memory 2" class="memory-button" onclick="showMemoryPopupWithAudio(1)" />
+        <p class="memory-text">Your First Reply</p>
+      </div>
+
+      <div class="memory-button-wrapper">
+        <img src="box.png" alt="Memory 3" class="memory-button" onclick="showMemoryPopup(2)" />
+        <p class="memory-text">Me n U 🤭</p>
+      </div>
+    </div>
+
+  <div id="memoryPopup" class="popup-overlay" onclick="closeMemoryPopup(event)">
+    <div class="memory-popup-content">
+      <h2 id="popupTitle"></h2>
+      <img id="popupImg" src="White and Pink Heart-Shaped Photo Collage.png" alt="Memory" class="memory-popup-img" />
+      <div id="popupAudioContainer"></div> <button onclick="closeMemoryPopup()" class="close-btn">Close</button>
+    </div>
+  </div>
+
+  <div id="openPopup" class="popup-overlay" onclick="closeOpenPopup(event)">
+    <div class="open-popup-content">
+      <img src="White and Pink Heart-Shaped Photo Collage.png" alt="A Sweet Image" style="max-width: 800px; height: auto; margin-bottom: 1rem;">
+      
+      <p>I was lit crying when I was doing this</p>
+      <p>I miss you so much</p>
+      <button class="open-close-btn" onclick="closeOpenPopup()">Close</button>
+    </div>
+  </div>
+
+  <audio id="memoryAudio" src="The Ronettes - Be My Baby (Official Audio).mp3"></audio>
+
+  <script>
+    const memoryData = [
+      { title: "Night the we became official", img: "official.PNG" },
+      { title: "Your First Message", img: "first.png", audioSrc: "The Ronettes - Be My Baby (Official Audio).mp3" },
+      { title: "Ussssss", img: "Untitled design (1).png" }
+    ];
+
+    function showOpenPopup() {
+      document.getElementById("openPopup").style.display = "flex";
+    }
+
+    function closeOpenPopup(event) {
+      if (event?.target?.id === "openPopup" || !event) {
+        document.getElementById("openPopup").style.display = "none";
+      }
+    }
+
+    function showMemoryPopup(index) {
+      const memory = memoryData[index];
+      document.getElementById("popupTitle").textContent = memory.title;
+      document.getElementById("popupImg").src = memory.img;
+      document.getElementById("popupAudioContainer").innerHTML = ''; // Clear any previous audio
+      document.getElementById("memoryPopup").style.display = "flex";
+    }
+
+    function showMemoryPopupWithAudio(index) {
+      const memory = memoryData[index];
+      document.getElementById("popupTitle").textContent = memory.title;
+      document.getElementById("popupImg").src = memory.img;
+
+      const audioContainer = document.getElementById("popupAudioContainer");
+      if (memory.audioSrc) {
+        audioContainer.innerHTML = `
+          <p style="margin-bottom: 0.5rem; font-size: 1rem; color: #FF6F61; font-family: 'VT323', monospace;">How this message make me feel ˙ᵕ˙ </p>
+          <audio controls autoplay>
+            <source src="${memory.audioSrc}" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+        `;
+      } else {
+        audioContainer.innerHTML = ''; // Ensure no audio player if no source
+      }
+      document.getElementById("memoryPopup").style.display = "flex";
+    }
+
+    function closeMemoryPopup(event) {
+      if (event?.target?.id === "memoryPopup" || !event) {
+        document.getElementById("memoryPopup").style.display = "none";
+        // Optionally pause the audio when closing
+        const audioPlayer = document.querySelector("#popupAudioContainer audio");
+        if (audioPlayer) {
+          audioPlayer.pause();
+        }
+      }
+    }
+
+    function updateCountdown() {
+      const startDate = new Date("July 29, 2023 01:05:00");
+      const now = new Date();
+
+      let years = now.getFullYear() - startDate.getFullYear();
+      let months = now.getMonth() - startDate.getMonth();
+      let days = now.getDate() - startDate.getDate();
+      let hours = now.getHours() - startDate.getHours();
+      let minutes = now.getMinutes() - startDate.getMinutes();
+      let seconds = now.getSeconds() - startDate.getSeconds();
+
+      if (seconds < 0) { seconds += 60; minutes--; }
+      if (minutes < 0) { minutes += 60; hours--; }
+      if (hours < 0) { hours += 24; days--; }
+      if (days < 0) {
+        const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+        days += prevMonth.getDate();
+        months--;
+      }
+      if (months < 0) { months += 12; years--; }
+
+      const display = `${years}y ${months}mo ${days}d ${hours}h ${minutes}m ${seconds}s`;
+      document.getElementById("countdown").textContent = `Together for: ${display}`;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+    
+
+  </script>
+</body>
+</html>

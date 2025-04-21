@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Monthsary!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+  font-family: 'Quicksand', sans-serif;
+  background-image: url('background.png');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+    .card {
+      background-color: white;
+      border-radius: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      padding: 2rem 3rem;
+      text-align: center;
+      max-width: 400px;
+      z-index: 10;
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 2.5rem;
+      color: #FF6F61;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: #3E2723;
+      margin-bottom: 1.5rem;
+    }
+
+    .enter-button {
+      background-color: #F67280;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      margin-top: 1rem;
+    }
+
+    .enter-button:hover {
+      background-color: #c25b66;
+    }
+
+    
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    input[type="number"] {
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .message {
+      margin-top: 1rem;
+      font-size: 1rem;
+      color: #FF6F61;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating Sushi Icons -->
+ 
+
+  <div class="card">
+   
+    <p>Can you enter how long we've been together 😊</p>
+
+    <form id="monthsForm" onsubmit="event.preventDefault(); checkMonths();">
+      <input type="number" id="monthsInput" placeholder="How many months? 💭" required />
+      <br>
+      <button class="enter-button" type="submit">Submit</button>
+    </form>
+
+    <div class="message" id="message"></div>
+  </div>
+
+  <script>
+    let correctOnce = false;
+
+    function checkMonths() {
+      const input = document.getElementById("monthsInput").value;
+      const messageDiv = document.getElementById("message");
+
+      if (input === "21") {
+        if (!correctOnce) {
+          messageDiv.innerText = "ARE YOU SUREEE?!?!?!?!?!!! 🤨";
+          correctOnce = true;
+        } else {
+          messageDiv.innerText = "Yes! 21 months tgt, and 1 n a half month of ldr. miss u tiffo 😕";
+          // Redirect to another HTML file after the second correct answer
+          setTimeout(function() {
+            window.location.href = "nextPage.html"; // Replace with your actual HTML file name
+          }, 5000); // Redirects after 2 seconds
+        }
+      } else {
+        messageDiv.innerText = "HOW DID YOU GET IT WRONGGG 🙁";
+      }
+      messageDiv.style.display = "block";
+    }
+  </script>
+</body>
+</html>
